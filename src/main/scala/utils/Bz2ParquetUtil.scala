@@ -3,12 +3,13 @@ package utils
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.{DataFrame, Row, SQLContext, SaveMode}
+import org.apache.spark.sql._
+import pojo.SchemaV1
 
 object Bz2ParquetUtil {
 
   val kInputPath = "C:\\Users\\jiang\\Desktop\\03_互联网广告项目\\spark_dmp\\src\\main\\resources\\2016-10-01_06_p1_invalid.1475274123982.log"
-  val kOutputPath = "C:\\JiangHai\\hadoophome\\03"
+  val kOutputPath = "C:\\JiangHai\\hadoophome\\01"
 
 
   def main(args: Array[String]): Unit = {
@@ -125,12 +126,8 @@ object Bz2ParquetUtil {
     })
 
     // 构建DF
-    val df: DataFrame = sqlContext.createDataFrame(maped, SchemaUtil.logStructType)
-
-    // df.write.mode(SaveMode.Overwrite).parquet(kOutputPath)
-    // df.write.mode(SaveMode.Overwrite).partitionBy("provincename", "cityname").parquet(kOutputPath)
-    // df.write.mode(SaveMode.Overwrite).partitionBy("provincename", "cityname").json(kOutputPath)
-    df.write.mode(SaveMode.Overwrite).jdbc()
+    val df: DataFrame = sqlContext.createDataFrame(maped, SchemaV1.logStructType)
+    df.write.mode(SaveMode.Overwrite).partitionBy("provincename", "cityname").parquet(kOutputPath)
     sc.stop()
   }
 }

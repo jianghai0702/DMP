@@ -1,8 +1,8 @@
-package utils
+package pojo
 
 import org.apache.spark.sql.types._
 
-object SchemaUtil {
+object SchemaV1 {
   // 定义日志的schema结构信息
   val logStructType = StructType(
     Seq(
