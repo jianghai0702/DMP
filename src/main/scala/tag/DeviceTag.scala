@@ -32,10 +32,10 @@ object DeviceTag extends Tag {
     // 设备运营商方式
     val ispid = row.getAs[Int]("ispid")
     ispid match {
-      case 1 => list:+=("D00020001",1)
-      case 2 => list:+=("D00020002",1)
-      case 3 => list:+=("D00020003",1)
-      case _ => list:+=("D00020004",1)
+      case 1 => list:+=("D00030001",1)
+      case 2 => list:+=("D00030002",1)
+      case 3 => list:+=("D00030003",1)
+      case _ => list:+=("D00030004",1)
     }
     list
   }
